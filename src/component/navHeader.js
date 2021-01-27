@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import UpdateNavStateActionCreator from '../redux/actions'
 
-export default (props) => {
+const NavHeader = (props) => {
     return (
         <div>
             <button onClick={() => props.setNavTab("CATEGORY")}>Category</button>
@@ -9,3 +11,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default connect(null, {setNavTab : UpdateNavStateActionCreator})(NavHeader);

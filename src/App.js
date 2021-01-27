@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
 import './App.css';
 
 import NavHeader from './component/navHeader';
@@ -7,25 +8,32 @@ import Category from './component/category';
 import Topic from './component/topicComponent';
 
 
-function App() {
-  const [currentNavtab, setCurrentNavtab] = useState('BOOKS');
+function App(props) {
 
   function renderNavPage(currentNavtab) {
     switch(currentNavtab) {
       case "BOOKS" :
-        return <Books currentNavTab={currentNavtab} />
+        return <Books />
       case "CATEGORY" :
-        return <Category currentNavTab={currentNavtab} />
+        return <Category />
       case "TOPIC" :
-        return <Topic currentNavTab={currentNavtab} />
+        return <Topic />
+      default:
+        return null;
     }
   }
   return (
     <div className="App">
-      <NavHeader currentNavtab={currentNavtab} setNavTab={(clickedVal) => {setCurrentNavtab(clickedVal)}} />
-      {renderNavPage(currentNavtab)}
+      <NavHeader />
+      {renderNavPage(props.currentNavTab)}
     </div>
   );
 }
 
-export default App;
+const mapStateToprops = (store) => {
+  return {
+    currentNavTab : store.selectedNav
+  }
+}
+
+export default connect(mapStateToprops, null)(App);
