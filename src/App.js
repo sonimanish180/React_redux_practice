@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
+import NavHeader from './component/navHeader';
+import Books from './component/books';
+import Category from './component/category';
+import Topic from './component/topicComponent';
+
+
 function App() {
+  const [currentNavtab, setCurrentNavtab] = useState('BOOKS');
+
+  function renderNavPage(currentNavtab) {
+    switch(currentNavtab) {
+      case "BOOKS" :
+        return <Books currentNavTab={currentNavtab} />
+      case "CATEGORY" :
+        return <Category currentNavTab={currentNavtab} />
+      case "TOPIC" :
+        return <Topic currentNavTab={currentNavtab} />
+    }
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavHeader currentNavtab={currentNavtab} setNavTab={(clickedVal) => {setCurrentNavtab(clickedVal)}} />
+      {renderNavPage(currentNavtab)}
     </div>
   );
 }
